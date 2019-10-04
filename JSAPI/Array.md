@@ -4,51 +4,51 @@
 
 ### *. Array.length
 
-1. 属性特征
+1.属性特征
 ```json
 {
-  writable: true,
-  enumerable: false,
-  configurable: false
+  "writable": true,
+  "enumerable": false,
+  "configurable": false
 }
 ```
-2. tips
+2.tips
 - length的值是一个无符号32位整数，所以数组的长度`不能超过2^32-1`，且`不能为负数`
 - length属性不一定表示数组中定义值的个数，因为可以为随意指定的数组下标设置值，length会一直大于设置的最大下标
-3. 相关文档
+3.相关文档
 - [Array.length](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/length)
 
 ### *. Array.prototype
 
-1. 属性特征
+1.属性特征
 ```json
 {
-  writable: false,
-  enumerable: false,
-  configurable: false
+  "writable": false,
+  "enumerable": false,
+  "configurable": false
 }
 ```
-2. 相关文档
+2.相关文档
 - [Array.prototype](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype)
 
 ### *. Array.prototype[@@unscopables]
 
-1. 属性特征
+1.属性特征
 ```json
 {
-  writable: true,
-  enumerable: false,
-  configurable: true
+  "writable": true,
+  "enumerable": false,
+  "configurable": true
 }
 ```
-2. tips
+2.tips
 symbol属性所要解决的问题，防止某些数组方法被添加到with语句的作用域内
 ```javascript
 Object.keys(Array.prototype[Symbol.unscopables]);
 
 // copyWithin, entries, fill, find, findIndex, flat, flatMap, includes, keys, values
 ```
-3. 相关文档：
+3.相关文档：
 - [Symbol.unscopables](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol/unscopables)
 - [Array.prototype[@@unscopables]](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/@@unscopables)
 
@@ -122,7 +122,7 @@ Object.keys(Array.prototype[Symbol.unscopables]);
 
 ### *. from()
 
-1. 定义
+1.定义
 从一个`类数组`或`可迭代对象`中创建一个新的，浅拷贝的数组实例，from方法不在Array.prototype身上，而是在Array身上
 
 ```javascript
@@ -134,12 +134,12 @@ Object.keys(Array.prototype[Symbol.unscopables]);
  */
 Array.from(arrayLike, mapFn?, thisArg?)
 ```
-2. 相关文档
+2.相关文档
 - [Array.from](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/from)
 
 ### *. isArray()
 
-1. 定义
+1.定义
 判断方法是否为Array，isArray方法不在Array.prototype身上，而是在Array身上
 
 ```javascript
@@ -149,7 +149,7 @@ Array.from(arrayLike, mapFn?, thisArg?)
  */
 Array.isArray(obj)
 ```
-2. tips
+2.tips
 ```javascript
 // Array.prototype 也是一个数组
 Array.isArray(Array.prototype)
@@ -165,12 +165,12 @@ const arr = new xArray(1,2,3); // [1,2,3]
 Array.isArray(arr);  // true
 arr instanceof Array; // false
 ```
-3. 相关文档
+3.相关文档
 - [Array.isArray](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray)
 
 ### *. of()
 
-1. 定义
+1.定义
 创建一个可变数量参数的新数组
 
 ```javascript
@@ -180,5 +180,5 @@ arr instanceof Array; // false
  */
 Array.of(element0, element1?, ...)
 ```
-2. 相关文档
+2.相关文档
 - [Array.of](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/of)
