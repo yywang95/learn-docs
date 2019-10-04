@@ -30,8 +30,11 @@
   "configurable": false
 }
 ```
+
 2.相关文档
 - [Array.prototype](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype)
+
+====================
 
 ### *. Array.prototype[@@unscopables]
 
@@ -43,6 +46,7 @@
   "configurable": true
 }
 ```
+
 2.tips
 symbol属性所要解决的问题，防止某些数组方法被添加到with语句的作用域内
 ```javascript
@@ -50,6 +54,7 @@ Object.keys(Array.prototype[Symbol.unscopables]);
 
 // copyWithin, entries, fill, find, findIndex, flat, flatMap, includes, keys, values
 ```
+
 3.相关文档：
 - [Symbol.unscopables](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol/unscopables)
 - [Array.prototype[@@unscopables]](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/@@unscopables)
@@ -70,6 +75,7 @@ Object.keys(Array.prototype[Symbol.unscopables]);
  */
 arr.copyWithin(target, start? = 0, end? = 0)
 ```
+
 2.tips
 - copyWithin的this不要求是数组
 ```javascript
@@ -80,8 +86,11 @@ i32a.copyWithin(0, 2);
 // {0: 1, 3: 1, length: 5}
 // 原来是[0: undefined, 1: undefined, 2: undefined, 3: 1]
 ```
+
 3.相关文档
 - [Array.prototype.copyWithin](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin)
+
+====================
 
 ### *. fill()
 
@@ -97,12 +106,15 @@ i32a.copyWithin(0, 2);
  */
 arr.fill(value, start? = 0, end? = arr.length)
 ```
+
 2.tips
 - 和copyWithin一样，fill的this也不要求是数组
 ```javascript
 [].fill.call({length: 5, 3: 1}, 0, 0, 2);
 // {0: 0, 1: 0, 3: 1, length: 5}
 ```
+
+====================
 
 ### *. pop()
 
@@ -132,8 +144,11 @@ arr.fill(value, start? = 0, end? = arr.length)
  */
 oldArr.concat(arr1, arr2?, ...)
 ```
+
 2.相关文档
 [Array.prototype.concat](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/concat)
+
+====================
 
 ### *. includes()
 
@@ -148,14 +163,38 @@ oldArr.concat(arr1, arr2?, ...)
  */
 arr.includes(valueTofind, fromIndex? = 0)
 ```
+
 2.tips
 - 比较字符串和字符时是区分大小写
 - 不要求this值是数组对象，所以它可以被用于其他类型的对象 (比如类数组对象)
 - includes可以区分出NaN，所以[NaN].includes(NaN)返回true
+
 3.相关文档
 - [Array.prototype.includes](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/includes)
 
+====================
+
 ### *. join()
+
+1.定义
+> 使用指定分隔符连接数组的每一项，返回连接后的字符串
+
+```javascript
+/**
+ * @param {String} separator 连接符
+ * @return {String} 连接后的字符串
+ */
+arr.join(separator?)
+```
+
+2.tips
+- undefined和null会转为空字符
+- 其他会调用toString()
+
+3.相关文档
+- [Array.prototype.join](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
+
+====================
 
 ### *. slice()
 
@@ -178,10 +217,14 @@ arr.includes(valueTofind, fromIndex? = 0)
  */
 arr.indexOf(searchElement, fromIndex? = 0)
 ```
+
 2.tips
 - indexOf使用严格相等，因为NaN===NaN返回false，所以[NaN].indexOf(NaN)返回-1
+
 3.相关文档
 - [Array.prototype.indexOf](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)
+
+====================
 
 ### *. lastIndexOf()
 
@@ -200,14 +243,18 @@ arr.indexOf(searchElement, fromIndex? = 0)
  */
 arr.forEach(callback, thisArg?)
 ```
+
 2.tips
 - 在callback中往arr中push的项不会执行callback
 - 在callback中修改arr中还未执行callback的值，后面访问到的为新的值，因为会通过索引来访问
 - `已经删除或者未被赋值的项不会被调用`
 - forEach循环`不能被提前终止`，除非抛出异常
 - forEach()不会在迭代之前创建数组的副本，如果数组在迭代时被修改了，则其他元素会被跳过
+
 3.相关文档
 - [Array.prototype.forEach](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
+
+====================
 
 ### *. entries()
 
@@ -220,6 +267,7 @@ arr.forEach(callback, thisArg?)
  */
 arr.entries()
 ```
+
 2.tips
 - 示例
 ```javascript
@@ -232,8 +280,11 @@ iterator.next().value; // [2, 3]
 iterator.next().value; // undefined
 ```
 - 不管项有没有赋值都会被遍历到
+
 3.相关文档
 - [Array.prototype.entries](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/entries)
+
+====================
 
 ### *. every()
 
@@ -248,12 +299,16 @@ iterator.next().value; // undefined
  */
 arr.every(callback, thisArg?)
 ```
+
 2.tips
 - 当有值返回false时，立即返回，后面的项不执行
 - 当传入的是空数组无论如何都会返回true
 - `已经删除或者未被赋值的项不会被调用`
+
 3.相关文档
 - [Array.prototype.every](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
+
+====================
 
 ### *. some()
 
@@ -270,10 +325,14 @@ arr.every(callback, thisArg?)
  */
 arr.filter(callback, thisArg?)
 ```
+
 2.tips
 - filter的项在第一次执行callback时就被确定，但是`已经删除或者未被赋值的项不会被调用`
+
 3.相关文档
 - [Array.prototype.filter](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+
+====================
 
 ### *. find()
 
@@ -288,13 +347,17 @@ arr.filter(callback, thisArg?)
  */
 arr.find(callback, thisArg?)
 ```
+
 2.tips
 - 不管有没有赋值都会被遍历
 - 在callback中往arr中push的项不会执行callback
 - 在callback中修改arr中还未执行callback的值，后面访问到的为新的值，因为会通过索引来访问
 - 在callback中删除arr中还未执行callback的值，被删除的元素仍然会被访问到，例如arr有四项，在callback删除一项，callback仍然会遍历4次，但是会在已删除的新数组中查找
+
 3.相关文档
 - [Array.prototype.find](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
+
+====================
 
 ### *. findIndex()
 
@@ -309,13 +372,17 @@ arr.find(callback, thisArg?)
  */
 arr.findIndex(callback, thisArg?)
 ```
+
 2.tips
 - 不管有没有赋值都会被遍历
 - 在callback中往arr中push的项不会执行callback
 - 在callback中修改arr中还未执行callback的值，后面访问到的为新的值，因为会通过索引来访问
 - 在callback中删除arr中还未执行callback的值，被删除的元素仍然会被访问到，例如arr有四项，在callback删除一项，callback仍然会遍历4次，但是会在已删除的新数组中查找
+
 3.相关文档
 - [Array.prototype.findIndex](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex)
+
+====================
 
 ### *. keys()
 ### *. reduce()
@@ -339,8 +406,11 @@ arr.findIndex(callback, thisArg?)
  */
 Array.from(arrayLike, mapFn?, thisArg?)
 ```
+
 2.相关文档
 - [Array.from](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/from)
+
+====================
 
 ### *. isArray()
 
@@ -354,6 +424,7 @@ Array.from(arrayLike, mapFn?, thisArg?)
  */
 Array.isArray(obj)
 ```
+
 2.tips
 ```javascript
 // Array.prototype 也是一个数组
@@ -370,8 +441,11 @@ const arr = new xArray(1,2,3); // [1,2,3]
 Array.isArray(arr);  // true
 arr instanceof Array; // false
 ```
+
 3.相关文档
 - [Array.isArray](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray)
+
+====================
 
 ### *. of()
 
@@ -385,8 +459,11 @@ arr instanceof Array; // false
  */
 Array.of(element0, element1?, ...)
 ```
+
 2.相关文档
 - [Array.of](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/of)
+
+====================
 
 ### *. flat
 
@@ -400,6 +477,7 @@ Array.of(element0, element1?, ...)
  */
 arr.flat(depth? = 1)
 ```
+
 2.tips
 - 示例
 ```javascript
@@ -418,8 +496,11 @@ var a = [1, 2, , 4, 5];
 a.flat();
 // [1, 2, 4, 5]
 ```
+
 3.相关文档
 - [Array.prototype.flat](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
+
+====================
 
 ### *. flatMap
 
@@ -434,5 +515,6 @@ a.flat();
  */
 arr.flatMap(callback, thisArg?)
 ```
+
 2.相关文档
 - [Array.prototype.flatMap](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap)
