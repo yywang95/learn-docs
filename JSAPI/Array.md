@@ -56,7 +56,51 @@ Object.keys(Array.prototype[Symbol.unscopables]);
 
 ### *. copyWithin()
 
+1.定义
+将数组某个位置的值复制到另一个位置上
+
+```javascript
+/**
+ * @param {Number} target 复制到哪个位置的起始位置，如果为负数则从末尾开始计算，大于length不拷贝
+ * @param {Number} start 从第几个位置开始复制。如果是负数，从末尾开始计算
+ * @param {Number} end 从第几个位置结束复制。如果是负数，从末尾开始计算，忽略会直接复制到末尾
+ * @return {Array} 返回的还是自身，不过自身被改变了
+ */
+arr.copyWithin(target, start? = 0, end? = 0)
+```
+2.tips
+- copyWithin的this不要求是数组
+```javascript
+i32a.copyWithin(0, 2);
+// Int32Array [3, 4, 5, 4, 5]
+
+[].copyWithin.call({length: 5, 3: 1}, 0, 3);
+// {0: 1, 3: 1, length: 5}
+// 原来是[0: undefined, 1: undefined, 2: undefined, 3: 1]
+```
+3.相关文档
+- [Array.prototype.copyWithin](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin)
+
 ### *. fill()
+
+1.定义
+> 用一个固定值填充一个数组从起始索引到终止索引，`左闭右开`
+
+```javascript
+/**
+ * @param {Any} value 需要填充的值
+ * @param {Number} start 起始索引，如果是负数，从末尾开始计算
+ * @param {Number} end 结束索引，如果是负数，从末尾开始计算
+ * @return {Array} 返回的还是自身，不过自身被改变了
+ */
+arr.fill(value, start? = 0, end? = arr.length)
+```
+2.tips
+- 和copyWithin一样，fill的this也不要求是数组
+```javascript
+[].fill.call({length: 5, 3: 1}, 0, 0, 2);
+// {0: 0, 1: 0, 3: 1, length: 5}
+```
 
 ### *. pop()
 
@@ -76,6 +120,19 @@ Object.keys(Array.prototype[Symbol.unscopables]);
 
 ### *. concat()
 
+1.定义
+> 用于合并多个数组，返回一个合并后的新数组，浅拷贝
+
+```javascript
+/**
+ * @param {Array|Any} arr1 ...需要合并的数组，如果arr是数组则会把每一项合并过去，否则作为一项合并
+ * @return {Array} 返回合并后的新数组
+ */
+oldArr.concat(arr1, arr2?, ...)
+```
+2.相关文档
+[Array.prototype.concat](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/concat)
+
 ### *. includes()
 
 ### *. join()
@@ -94,42 +151,134 @@ Object.keys(Array.prototype[Symbol.unscopables]);
 
 ## 四、遍历方法
 
-### 1. forEach()
+### *. forEach()
 
-### 2. entries()
+### *. entries()
 
-### 3. every()
+1.定义
+> 返回一个新的Array Iterator对象，该对象包含数组中每个索引的键/值对
 
-### 4. some()
+```javascript
+/**
+ * @return {Array} [key, value]
+ */
+arr.entries()
+```
+2.tips
+- 示例
+```javascript
+const arr = [1, 2, 3];
+const iterator = arr.entries();
 
-### 5. filter()
+iterator.next().value; // [0, 1]
+iterator.next().value; // [1, 2]
+iterator.next().value; // [2, 3]
+iterator.next().value; // undefined
+```
+- 不管项有没有赋值都会被遍历到
+3.相关文档
+- [Array.prototype.entries](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/entries)
 
-#### find()
+### *. every()
 
-#### findIndex()
+1.定义
+> 返回数组内的每个值是否都能通过callback测试
 
-#### keys()
+```javascript
+/**
+ * @param {Function} callback(element, index, array) 指定测试函数
+ * @param {Any} thisArg callback中使用的this，没提供callback中的this非严格下为window，严格模式下为undefined
+ * @return {Boolean} 是否都通过测试
+ */
+arr.every(callback, thisArg?)
+```
+2.tips
+- 当有值返回false时，立即返回，后面的项不执行
+- 当传入的是空数组无论如何都会返回true
+- `已经删除或者未被赋值的项不会被调用`
+3.相关文档
+- [Array.prototype.every](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
 
-#### reduce()
+### *. some()
 
-#### reduceRight()
+### *. filter()
 
-#### values()
+1.定义
+> 返回一个通过测试的项组成的新数组
 
-#### [@@iterator]()
+```javascript
+/**
+ * @param {Function} callback(element, index, array) 指定测试函数
+ * @param {Any} thisArg callback中使用的this，没提供callback中的this非严格下为window，严格模式下为undefined
+ * @return {Array} 新数组
+ */
+arr.filter(callback, thisArg?)
+```
+2.tips
+- filter的项在第一次执行callback时就被确定，但是`已经删除或者未被赋值的项不会被调用`
+3.相关文档
+- [Array.prototype.filter](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+
+### *. find()
+
+1.定义
+> 返回数组中满足测试函数的第一个元素，否则返回undefined
+
+```javascript
+/**
+ * @param {Function} callback(element, index, array) 回调函数
+ * @param {Any} thisArg 调用callback中的this，没提供callback中的this非严格下为window，严格模式下为undefined
+ * @return {Any} 满足条件的项，没有返回undefined
+ */
+arr.find(callback, thisArg?)
+```
+2.tips
+- 不管有没有赋值都会被遍历
+- 在callback中往arr中push的项不会执行callback
+- 在callback中修改arr中还未执行callback的值，后面访问到的为新的值，因为会通过索引来访问
+- 在callback中删除arr中还未执行callback的值，被删除的元素仍然会被访问到，例如arr有四项，在callback删除一项，callback仍然会遍历4次，但是会在已删除的新数组中查找
+3.相关文档
+- [Array.prototype.find](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
+
+### *. findIndex()
+
+1.定义
+> 返回数组中满足测试函数的第一个元素索引，否则返回-1
+
+```javascript
+/**
+ * @param {Function} callback(element, index, array) 回调函数
+ * @param {Any} thisArg 调用callback中的this，没提供callback中的this非严格下为window，严格模式下为undefined
+ * @return {Number} 满足条件的项索引，没有返回-1
+ */
+arr.findIndex(callback, thisArg?)
+```
+2.tips
+- 不管有没有赋值都会被遍历
+- 在callback中往arr中push的项不会执行callback
+- 在callback中修改arr中还未执行callback的值，后面访问到的为新的值，因为会通过索引来访问
+- 在callback中删除arr中还未执行callback的值，被删除的元素仍然会被访问到，例如arr有四项，在callback删除一项，callback仍然会遍历4次，但是会在已删除的新数组中查找
+3.相关文档
+- [Array.prototype.findIndex](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex)
+
+### *. keys()
+### *. reduce()
+### *. reduceRight()
+### *. values()
+### *. [@@iterator]()
 
 ## 五、其他方法
 
 ### *. from()
 
 1.定义
-从一个`类数组`或`可迭代对象`中创建一个新的，浅拷贝的数组实例，from方法不在Array.prototype身上，而是在Array身上
+> 从一个`类数组`或`可迭代对象`中创建一个新的，浅拷贝的数组实例，from方法不在Array.prototype身上，而是在Array身上
 
 ```javascript
 /**
  * @param {Any} arrayLike 想要转为数组的类数组或可迭代对象
  * @param {Function} mapFn 新数组中每个元素会执行该回调函数，相当于执行了一次arr.map
- * @param {Object} thisArg mapFn回调函数中的this
+ * @param {Object} thisArg 调用mapFn中的this，没提供mapFn中的this非严格下为window，严格模式下为undefined
  * @return {Array} 一个新数组
  */
 Array.from(arrayLike, mapFn?, thisArg?)
@@ -140,7 +289,7 @@ Array.from(arrayLike, mapFn?, thisArg?)
 ### *. isArray()
 
 1.定义
-判断方法是否为Array，isArray方法不在Array.prototype身上，而是在Array身上
+> 判断方法是否为Array，isArray方法不在Array.prototype身上，而是在Array身上
 
 ```javascript
 /**
@@ -171,7 +320,7 @@ arr instanceof Array; // false
 ### *. of()
 
 1.定义
-创建一个可变数量参数的新数组
+> 创建一个可变数量参数的新数组
 
 ```javascript
 /**
@@ -182,3 +331,52 @@ Array.of(element0, element1?, ...)
 ```
 2.相关文档
 - [Array.of](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/of)
+
+### *. flat
+
+1.定义
+> 扁平化数组
+
+```javascript
+/**
+ * @param {Number} depth 嵌套结构深度，默认为1
+ * @return {Array} 处理后的新数组
+ */
+arr.flat(depth? = 1)
+```
+2.tips
+- 示例
+```javascript
+var a = [1, 2, [3, 4], [[5], [6], 7]];
+
+a.flat();
+// [1, 2, 3, 4, [5], [6], 7]
+
+a.flat(2);
+// [1, 2, 3, 4, 5, 6, 7]
+```
+- 空项将被移除(未被赋值的项，未被赋值不等于undefined)
+```javascript
+var a = [1, 2, , 4, 5];
+
+a.flat();
+// [1, 2, 4, 5]
+```
+3.相关文档
+- [Array.prototype.flat](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
+
+### *. flatMap
+
+1.定义
+> 相当于先执行map然后执行flat，深度为1
+
+```javascript
+/**
+ * @param {Function} callback(element, index, array) 执行map方法
+ * @param {Any} thisArg 调用callback中的this，没提供callback中的this非严格下为window，严格模式下为undefined
+ * @return {Array} 处理后的新数组
+ */
+arr.flatMap(callback, thisArg?)
+```
+2.相关文档
+- [Array.prototype.flatMap](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap)
