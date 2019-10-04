@@ -18,6 +18,8 @@
 3.相关文档
 - [Array.length](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/length)
 
+====================
+
 ### *. Array.prototype
 
 1.属性特征
@@ -57,7 +59,7 @@ Object.keys(Array.prototype[Symbol.unscopables]);
 ### *. copyWithin()
 
 1.定义
-将数组某个位置的值复制到另一个位置上
+> 将数组某个位置的值复制到另一个位置上
 
 ```javascript
 /**
@@ -135,6 +137,24 @@ oldArr.concat(arr1, arr2?, ...)
 
 ### *. includes()
 
+1.定义
+> 判断一个数组是否包含指定值，引用类型会根据地址来判断
+
+```javascript
+/**
+ * @param {Any} valueTofind 需要判断的数值
+ * @param {Number} fromIndex 开始查找的起始位置，如果为负数则从倒数第n个开始查找
+ * @return {Boolean} 是否包含
+ */
+arr.includes(valueTofind, fromIndex? = 0)
+```
+2.tips
+- 比较字符串和字符时是区分大小写
+- 不要求this值是数组对象，所以它可以被用于其他类型的对象 (比如类数组对象)
+- includes可以区分出NaN，所以[NaN].includes(NaN)返回true
+3.相关文档
+- [Array.prototype.includes](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/includes)
+
 ### *. join()
 
 ### *. slice()
@@ -147,11 +167,47 @@ oldArr.concat(arr1, arr2?, ...)
 
 ### *. indexOf()
 
+1.定义
+> 返回在数组中可以找到一个给定元素的第一个索引，如果不存在，则返回-1
+
+```javascript
+/**
+ * @param {Any} searchElement 查找的值
+ * @param {Number} fromIndex 开始查找位置，如果是负数，则从倒数开始查找
+ * @return {Number} 查找到的值索引
+ */
+arr.indexOf(searchElement, fromIndex? = 0)
+```
+2.tips
+- indexOf使用严格相等，因为NaN===NaN返回false，所以[NaN].indexOf(NaN)返回-1
+3.相关文档
+- [Array.prototype.indexOf](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)
+
 ### *. lastIndexOf()
 
 ## 四、遍历方法
 
 ### *. forEach()
+
+1.定义
+> 对数组的每一项执行提供的函数
+
+```javascript
+/**
+ * @param {Function} callback(element, index, array) 需要执行的函数
+ * @param {Any} thisArg callback中使用的this，没提供callback中的this非严格下为window，严格模式下为undefined
+ * @return {undefined}
+ */
+arr.forEach(callback, thisArg?)
+```
+2.tips
+- 在callback中往arr中push的项不会执行callback
+- 在callback中修改arr中还未执行callback的值，后面访问到的为新的值，因为会通过索引来访问
+- `已经删除或者未被赋值的项不会被调用`
+- forEach循环`不能被提前终止`，除非抛出异常
+- forEach()不会在迭代之前创建数组的副本，如果数组在迭代时被修改了，则其他元素会被跳过
+3.相关文档
+- [Array.prototype.forEach](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
 
 ### *. entries()
 
