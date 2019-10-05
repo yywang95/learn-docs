@@ -1,5 +1,7 @@
 # Array对象
 
+[toc]
+
 ## 一、属性
 
 ### *. Array.length
@@ -18,7 +20,7 @@
 3.相关文档
 - [Array.length](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/length)
 
-====================
+==============================
 
 ### *. Array.prototype
 
@@ -34,7 +36,7 @@
 2.相关文档
 - [Array.prototype](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype)
 
-====================
+==============================
 
 ### *. Array.prototype[@@unscopables]
 
@@ -58,6 +60,20 @@ Object.keys(Array.prototype[Symbol.unscopables]);
 3.相关文档：
 - [Symbol.unscopables](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol/unscopables)
 - [Array.prototype[@@unscopables]](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/@@unscopables)
+
+==============================
+
+### *. Array[@@species]
+
+1.tips
+返回Array的构造函数
+
+```javascript
+Array[Symbol.species]
+```
+
+2.相关文档：
+- [Array[Symbol.species]](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/@@species)
 
 ## 二、会改变自身的方法
 
@@ -90,7 +106,7 @@ i32a.copyWithin(0, 2);
 3.相关文档
 - [Array.prototype.copyWithin](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin)
 
-====================
+==============================
 
 ### *. fill()
 
@@ -114,21 +130,138 @@ arr.fill(value, start? = 0, end? = arr.length)
 // {0: 0, 1: 0, 3: 1, length: 5}
 ```
 
-====================
+==============================
 
 ### *. pop()
 
+1.定义
+> 从数组中删除最后一个元素，并返回该元素
+
+```javascript
+/**
+ * @return {Any} 数组最后一项
+ */
+arr.pop()
+```
+
+2.tips
+- pop方法根据length属性来确定最后一个元素的位置
+- 如果不包含length属性或length属性不能被转成一个数值，会将length置为0，并返回undefined
+
+3.相关文档
+- [Array.prototype.pop](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)
+
+==============================
+
 ### *. push()
 
-### *. reverse()
+1.定义
+> 将一个或多个元素添加到数组末尾
+
+```javascript
+/**
+ * @param {Any} element0 ...需要添加的元素
+ * @return {Number} 数组长度
+ */
+arr.push(element0, element1, ...)
+```
+
+2.tips
+- push 方法根据 length 属性来决定从哪里开始插入给定的值
+
+3.相关文档
+- [Array.prototype.push](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/push)
+
+==============================
 
 ### *. shift()
 
+1.定义
+> 从数组中删除第一个元素，并返回该元素的值
+
+```javascript
+/**
+ * @return {Any} 数组第一个元素
+ */
+arr.shift()
+```
+
+2.相关文档
+- [Array.prototype.shift](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)
+
+==============================
+
+### *. unshift()
+
+1.定义
+> 在数组开头添加多个元素
+
+```javascript
+/**
+ * @param {Any} element0 ...需要添加的元素
+ * @return {Number} 数组长度
+ */
+arr.unshift(element0, element1, ...)
+```
+
+2.相关文档
+- [Array.prototype.unshift](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift)
+
+==============================
+
+### *. reverse()
+
+1.定义
+> 将数组中元素的位置颠倒，并返回该数组。该方法会改变原数组
+
+```javascript
+/**
+ * @return {Array} 改变后的自身
+ */
+arr.reverse()
+```
+
+2.相关文档
+- [Array.prototype.reverse](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse)
+
+==============================
+
 ### *. sort()
+
+1.定义
+> 对数组的元素进行排序
+
+```javascript
+/**
+ * @param {Function} callback(first, second) 排序方法
+ * @return {Array} 改变后的自身
+ */
+arr.sort(callback)
+```
+
+2.相关文档
+- [Array.prototype.sort](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
+
+==============================
 
 ### *. splice()
 
-### *. unshift()
+1.定义
+> 从指定位置删除指定个数的元素，并从该位置开始插入其他元素
+
+```javascript
+/**
+ * @param {Number} start 开始删除位置
+ * @param {Number} deleteCount 删除元素个数，省略则后面的都会被删除
+ * @param {Any} element0 ...插入的元素
+ * @return {Array} 被移除的元素
+ */
+arr.splice(start, deleteCount?, element0, ...)
+```
+
+2.相关文档
+- [Array.prototype.splice](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)
+
 
 ## 三、不会改变自身的方法
 
@@ -148,7 +281,7 @@ oldArr.concat(arr1, arr2?, ...)
 2.相关文档
 [Array.prototype.concat](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/concat)
 
-====================
+==============================
 
 ### *. includes()
 
@@ -172,7 +305,7 @@ arr.includes(valueTofind, fromIndex? = 0)
 3.相关文档
 - [Array.prototype.includes](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/includes)
 
-====================
+==============================
 
 ### *. join()
 
@@ -194,15 +327,25 @@ arr.join(separator?)
 3.相关文档
 - [Array.prototype.join](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
 
-====================
+==============================
 
 ### *. slice()
 
-### *. toSource()
+1.定义
+> 复制数组一部分并返回复制后的新数组，浅拷贝
 
-### *. toString()
+```javascript
+/**
+ * @param {String} separator 连接符
+ * @return {String} 连接后的字符串
+ */
+arr.slice(begin? = 0, end? = arr.length - 1)
+```
 
-### *. toLocaleString()
+2.相关文档
+- [Array.prototype.slice](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
+
+==============================
 
 ### *. indexOf()
 
@@ -224,9 +367,63 @@ arr.indexOf(searchElement, fromIndex? = 0)
 3.相关文档
 - [Array.prototype.indexOf](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)
 
-====================
+==============================
 
 ### *. lastIndexOf()
+
+1.定义
+> 返回在数组中可以找到一个给定元素的最后一个索引，如果不存在，则返回-1
+
+```javascript
+/**
+ * @param {Any} searchElement 查找的值
+ * @param {Number} fromIndex 开始查找位置，此位置向前查找，如果是负数，则从倒数开始向前查找
+ * @return {Number} 查找到的值索引
+ */
+arr.lastIndexOf(searchElement, fromIndex? = arr.length - 1)
+```
+
+2.tips
+- indexOf使用严格相等，因为NaN===NaN返回false，所以[NaN].indexOf(NaN)返回-1
+
+3.相关文档
+- [Array.prototype.lastIndexOf](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/lastIndexOf)
+
+==============================
+
+### *. toString()
+
+1.定义
+> 返回一个字符串表示数组中的元素。数组中的元素将使用各自的toString方法转成字符串
+
+```javascript
+/**
+ * @return {String}
+ */
+arr.toString()
+```
+
+2.相关文档
+- [Array.prototype.toString](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/toString)
+
+==============================
+
+### *. toLocaleString()
+
+1.定义
+> 返回一个字符串表示数组中的元素。数组中的元素将使用各自的toLocaleString方法转成字符串
+
+```javascript
+/**
+ * @param {String} locales 带有BCP 47语言标记的字符串或字符串数组
+ * @param {String} options 一个可配置属性的对象
+ * @return {String}
+ */
+arr.toLocaleString(locales?, options?)
+```
+
+2.相关文档
+- [Array.prototype.toLocaleString](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/toLocaleString)
 
 ## 四、遍历方法
 
@@ -254,7 +451,7 @@ arr.forEach(callback, thisArg?)
 3.相关文档
 - [Array.prototype.forEach](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
 
-====================
+==============================
 
 ### *. entries()
 
@@ -263,7 +460,7 @@ arr.forEach(callback, thisArg?)
 
 ```javascript
 /**
- * @return {Array} [key, value]
+ * @return {Array Iterator}
  */
 arr.entries()
 ```
@@ -274,6 +471,7 @@ arr.entries()
 const arr = [1, 2, 3];
 const iterator = arr.entries();
 
+// [key, value]
 iterator.next().value; // [0, 1]
 iterator.next().value; // [1, 2]
 iterator.next().value; // [2, 3]
@@ -284,7 +482,7 @@ iterator.next().value; // undefined
 3.相关文档
 - [Array.prototype.entries](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/entries)
 
-====================
+==============================
 
 ### *. every()
 
@@ -308,9 +506,50 @@ arr.every(callback, thisArg?)
 3.相关文档
 - [Array.prototype.every](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/every)
 
-====================
+==============================
 
 ### *. some()
+
+1.定义
+> 返回数组内的每个值是否有通过callback测试的，有一个则返回true
+
+```javascript
+/**
+ * @param {Function} callback(element, index, array) 指定测试函数
+ * @param {Any} thisArg callback中使用的this，没提供callback中的this非严格下为window，严格模式下为undefined
+ * @return {Boolean} 是否有通过测试
+ */
+arr.some(callback, thisArg?)
+```
+
+2.tips
+- 有一个返回true，则立即返回
+- `已经删除或者未被赋值的项不会被调用`
+
+3.相关文档
+- [Array.prototype.some](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
+
+==============================
+
+### *. map()
+
+1.定义
+> 创建一个新数组，其结果是该数组中的每个元素都调用一个提供的函数后返回的结果
+
+```javascript
+/**
+ * @param {Function} callback(currValue, index, array) 每一项需要执行的函数
+ * @param {Any} thisArg callback中使用的this，没提供callback中的this非严格下为window，严格模式下为undefined
+ * @return {Array} 新数组
+ */
+arr.map(callback, thisArg?)
+```
+
+2.tips
+- map的项在第一次执行callback时就被确定
+- `已经删除或者未被赋值的项不会被调用`
+
+==============================
 
 ### *. filter()
 
@@ -327,12 +566,13 @@ arr.filter(callback, thisArg?)
 ```
 
 2.tips
-- filter的项在第一次执行callback时就被确定，但是`已经删除或者未被赋值的项不会被调用`
+- filter的项在第一次执行callback时就被确定
+- `已经删除或者未被赋值的项不会被调用`
 
 3.相关文档
 - [Array.prototype.filter](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
 
-====================
+==============================
 
 ### *. find()
 
@@ -357,7 +597,7 @@ arr.find(callback, thisArg?)
 3.相关文档
 - [Array.prototype.find](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
 
-====================
+==============================
 
 ### *. findIndex()
 
@@ -382,13 +622,91 @@ arr.findIndex(callback, thisArg?)
 3.相关文档
 - [Array.prototype.findIndex](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex)
 
-====================
+==============================
+
+### *. reduce()
+
+1.定义
+> 对数组中的每个元素执行一个由您提供的reducer函数(升序执行)，将其结果汇总为单个返回值
+
+```javascript
+/**
+ * @param {Function} callback(prevValue, currValue, index, array) 执行的callback方法
+ * @param {Any} initialValue 初始值，没有则取数组的第一个元素
+ * @return {Any} 函数累计结果
+ */
+arr.reduce(callback, initialValue?)
+```
+
+2.相关文档
+- [Array.prototype.reduce](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
+
+==============================
+
+### *. reduceRight()
+
+1.定义
+> 和reduce一样，不过会从数组的右边往左执行
+
+```javascript
+/**
+ * @param {Function} callback(prevValue, currValue, index, array) 执行的callback方法
+ * @param {Any} initialValue 初始值，没有则取数组的最后一个元素
+ * @return {Any} 函数累计结果
+ */
+arr.reduceRight(callback, initialValue?)
+```
+
+2.相关文档
+- [Array.prototype.reduceRight](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight)
+
+==============================
 
 ### *. keys()
-### *. reduce()
-### *. reduceRight()
+
+1.定义
+> 返回一个包含数组中每个索引键的Array Iterator对象
+
+```javascript
+/**
+ * @return {Array Iterator} 索引键迭代对象
+ */
+arr.keys()
+```
+
+2.相关文档
+- [Array.prototype.keys](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/keys)
+
+==============================
+
 ### *. values()
+
+1.定义
+> 方法返回一个新的 Array Iterator 对象，该对象包含数组每个索引的值
+
+```javascript
+/**
+ * @return {Array Iterator} 值迭代对象
+ */
+arr.values()
+```
+
+2.相关文档
+- [Array.prototype.values](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/values)
+
+==============================
+
 ### *. [@@iterator]()
+
+1.定义
+> 数组的 iterator 方法，默认情况下与 values() 返回值相同
+
+```javascript
+/**
+ * @return {Array Iterator} 值迭代对象
+ */
+arr[Symbol.iterator]()
+```
 
 ## 五、其他方法
 
@@ -410,7 +728,7 @@ Array.from(arrayLike, mapFn?, thisArg?)
 2.相关文档
 - [Array.from](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/from)
 
-====================
+==============================
 
 ### *. isArray()
 
@@ -445,7 +763,7 @@ arr instanceof Array; // false
 3.相关文档
 - [Array.isArray](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray)
 
-====================
+==============================
 
 ### *. of()
 
@@ -463,7 +781,7 @@ Array.of(element0, element1?, ...)
 2.相关文档
 - [Array.of](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/of)
 
-====================
+==============================
 
 ### *. flat
 
@@ -500,7 +818,7 @@ a.flat();
 3.相关文档
 - [Array.prototype.flat](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
 
-====================
+==============================
 
 ### *. flatMap
 
