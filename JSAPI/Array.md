@@ -1,6 +1,54 @@
-# Array对象
+<!-- TOC -->
 
-[toc]
+- [Array对象](#array对象)
+    - [一、属性](#一属性)
+        - [*. Array.length](#-arraylength)
+        - [*. Array.prototype](#-arrayprototype)
+        - [*. Array.prototype[@@unscopables]](#-arrayprototypeunscopables)
+        - [*. Array[@@species]](#-arrayspecies)
+    - [二、会改变自身的方法](#二会改变自身的方法)
+        - [*. copyWithin()](#-copywithin)
+        - [*. fill()](#-fill)
+        - [*. pop()](#-pop)
+        - [*. push()](#-push)
+        - [*. shift()](#-shift)
+        - [*. unshift()](#-unshift)
+        - [*. reverse()](#-reverse)
+        - [*. sort()](#-sort)
+        - [*. splice()](#-splice)
+    - [三、不会改变自身的方法](#三不会改变自身的方法)
+        - [*. concat()](#-concat)
+        - [*. includes()](#-includes)
+        - [*. join()](#-join)
+        - [*. slice()](#-slice)
+        - [*. indexOf()](#-indexof)
+        - [*. lastIndexOf()](#-lastindexof)
+        - [*. toString()](#-tostring)
+        - [*. toLocaleString()](#-tolocalestring)
+    - [四、遍历方法](#四遍历方法)
+        - [*. forEach()](#-foreach)
+        - [*. entries()](#-entries)
+        - [*. every()](#-every)
+        - [*. some()](#-some)
+        - [*. map()](#-map)
+        - [*. filter()](#-filter)
+        - [*. find()](#-find)
+        - [*. findIndex()](#-findindex)
+        - [*. reduce()](#-reduce)
+        - [*. reduceRight()](#-reduceright)
+        - [*. keys()](#-keys)
+        - [*. values()](#-values)
+        - [*. @@iterator](#-iterator)
+    - [五、其他方法](#五其他方法)
+        - [*. from()](#-from)
+        - [*. isArray()](#-isarray)
+        - [*. of()](#-of)
+        - [*. flat](#-flat)
+        - [*. flatMap](#-flatmap)
+
+<!-- /TOC -->
+
+# Array对象
 
 ## 一、属性
 
