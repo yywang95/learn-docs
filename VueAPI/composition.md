@@ -1,5 +1,7 @@
 # Vue Composition API
 
+[官方文档](https://vue-composition-api-rfc.netlify.com/#plugin-development)
+
 <!-- TOC -->
 
 - [Vue Composition API](#vue-composition-api)
