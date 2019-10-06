@@ -1,3 +1,5 @@
+# Array对象
+
 <!-- TOC -->
 
 - [Array对象](#array对象)
@@ -47,8 +49,6 @@
         - [*. flatMap](#-flatmap)
 
 <!-- /TOC -->
-
-# Array对象
 
 ## 一、属性
 
