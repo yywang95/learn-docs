@@ -5,6 +5,7 @@
 <!-- TOC -->
 
 - [Vue Composition API](#vue-composition-api)
+    - [修改](#修改)
     - [setup](#setup)
     - [props](#props)
     - [context上下文](#context上下文)
@@ -21,6 +22,24 @@
     - [createComponent](#createcomponent)
 
 <!-- /TOC -->
+
+## 修改
+
+1. 2.x组件相关的选项以API函数的方式重新设计
+2. 3.0的一个主要设计目标是增强对TS的支持，没有使用class的方式的原因
+    - 基于函数的API天然对`类型推导很友好`
+    - 基于函数的API在使用`ts和js写出来基本一样`
+    - 基于函数的API每一个函数都作为named ES export被单独引入，`打包出来的尺寸更小`
+    - 基于函数的API所写的代码也`有更好的压缩效率`，因为所有的函数名和setup函数体内部的变量名都可以被压缩，但对象和class的属性/方法名却不可以
+3. 与react hooks对比
+    - 都具有同等的基于函数抽取和复用逻辑的能力
+    - react hook在每次组件渲染时都会调用，setup在每个实例只会在初始化调用一次，状态通过引用储存在setup的闭包内
+    - 不受调用顺序的限制，可以有条件地被调用
+    - 不会子啊后续更新时不断产生大量的内联函数而影响引擎优化或是导致GC压力
+
+参考文章
+
+- [vue function api](https://zhuanlan.zhihu.com/p/68477600)
 
 ## setup
 
