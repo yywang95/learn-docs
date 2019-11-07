@@ -1,6 +1,6 @@
 # Vue Composition API
 
-[官方文档](https://vue-composition-api-rfc.netlify.com/#plugin-development)
+> 最近修改：2019.10.05
 
 <!-- TOC -->
 
@@ -40,6 +40,7 @@
 参考文章
 
 - [vue function api](https://zhuanlan.zhihu.com/p/68477600)
+- [官方文档](https://vue-composition-api-rfc.netlify.com/#plugin-development)
 
 ## setup
 

@@ -1,76 +1,4 @@
-# 防抖(debounce)和节流(throttle)
-
-<!-- TOC -->
-
-- [防抖(debounce)和节流(throttle)](#防抖debounce和节流throttle)
-    - [一、防抖(debounce)](#一防抖debounce)
-            - [非立即执行](#非立即执行)
-            - [立即执行](#立即执行)
-    - [二、节流](#二节流)
-            - [时间戳版](#时间戳版)
-            - [定时器版](#定时器版)
-    - [三、完整代码](#三完整代码)
-            - [防抖](#防抖)
-            - [节流](#节流)
-
-<!-- /TOC -->
-
-> 为什么存在?
-> 为了避免持续触发事件(mouse、resize、scroll等)频繁的发生
-
-## 一、防抖(debounce)
-
-> 定义：触发事件后在n秒内函数只能执行一次，如果在n秒内又触发了事件，则会重新计算函数执行时间
-
-防抖分为`非立即执行`和`立即执行`
-
-#### 非立即执行
-
-在最后一次调用事件`n秒后执行`函数
-
-```javascript
-function debounce(func, wait) {
-    let timeout;
-
-    return function () {
-        const context = this;
-        const args = arguments;
-
-        if (timeout) clearTimeout(timeout);
-
-        timeout = setTimeout(() => {
-            func.apply(context, args);
-        });
-    };
-}
-```
-
-#### 立即执行
-
-执行一次函数后，在`其后`最后一次调用事件`n秒内`触发的函数都`不执行`
-
-```javascript
-function debounce(func, wait) {
-    let timeout;
-
-    return function () {
-        const context = this;
-        const args = arguments;
-
-        if (timeout) clearTimeout(timeout);
-        
-        const callNow = !timeout;
-
-        timeout = setTimeout(() => {
-            timeout = null;
-        }, wait);
-
-        if (callNow) func.apply(context, args);
-    };
-}
-```
-
-## 二、节流
+## 节流(throttle)
 
 > 定义：固定的n秒时间段内只执行一次函数，节流会稀释函数的执行频率
 
@@ -119,44 +47,7 @@ function throttle(func, wait) {
 }
 ```
 
-## 三、完整代码
-
-#### 防抖
-
-```javascript
-/**
- * @desc 函数防抖
- * @param {Function} func 被执行函数
- * @param {Number} wait 延迟执行毫秒数
- * @param {Boolean} immediate 是否立即执行
- */
-function debounce(func, wait, immediate) {
-    let timeout;
-
-    return funciton () {
-        const context = this;
-        const args = arguments;
-
-        if (timeout) clearTimeout(timeout);
-
-        if (immediate) {
-            const callNow = !timeout;
-
-            timeout = setTimeout(() => {
-                timeout = null;
-            }, wait);
-
-            if (callNow) func.apply(context, args);
-        } else {
-            timeout = setTimeout(() => {
-                func.apply(context, args);
-            }, wait);
-        }
-    };
-}
-```
-
-#### 节流
+#### 代码
 
 ```javascript
 /**
