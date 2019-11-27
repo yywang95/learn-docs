@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background: image-set(
+                url(http://img.58cdn.com.cn/lbg/shangjiaxcxht/zhushou/card_opposite_notext.png) 1x,
+                url(http://img.58cdn.com.cn/lbg/shangjiaxcxht/zhushou/discount-coupon-bg.png) 2x,
+                url(http://img.58cdn.com.cn/lbg/shangjiaxcxht/zhushou/register-nomp.png) 3x
+            );
+            background: -webkit-image-set(
+                url(http://img.58cdn.com.cn/lbg/shangjiaxcxht/zhushou/card_opposite_notext.png) 1x,
+                url(http://img.58cdn.com.cn/lbg/shangjiaxcxht/zhushou/discount-coupon-bg.png) 2x,
+                url(http://img.58cdn.com.cn/lbg/shangjiaxcxht/zhushou/register-nomp.png) 3x
+            );
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <script>
+        /**
+         * @doc https://www.zhangxinxu.com/wordpress/2019/11/css-image-set/
+         * background: image-set 根据设备的dpr来选中加载哪张图片
+         * 1.查看来network只会加载符合条件的图片，其他图片不会发起加载请求
+         * 2.window.devicePixelRatio可以查看设备的dpr
+         */
+        alert(window.devicePixelRatio);
+    </script>
+</body>
+</html>
