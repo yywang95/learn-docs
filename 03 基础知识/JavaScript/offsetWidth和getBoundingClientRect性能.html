@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+        <!-- 列表 -->
+        <item
+            :key="index"
+            :index="index"
+            :item="item"
+            v-for="(item, index) in items">
+        </item>
+    </div>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <script>
+        /**
+         * @doc offsetWidth会引起重绘，建议使用getBoundingClientRect
+         * ![image](../_images/03-01.png)
+         */
+        Vue.component('item', {
+            props: ['index', 'item'],
+            data() {
+                return {
+                    text: '',
+                };
+            },
+            template: '<div>{{index}}.{{item.name}}.{{text}}</div>',
+            mounted() {
+                this.$nextTick(() => {
+                    // getBoundingClientRect
+                    const width = this.$el.getBoundingClientRect().width;
+
+                    this.text = width;
+                });
+            },
+        });
+        
+        var app = new Vue({
+            el: '#root',
+            data: {
+                items: new Array(1000).fill({ name: 'hhh' }),
+            },
+            beforeMount() {
+                console.log('=======beforeMounted===');
+                console.time();
+            },
+            mounted() {
+                this.$nextTick(() => {
+                    console.log('======mounted====');
+                    console.timeEnd();
+                });
+            },
+        });
+    </script>
+</body>
+</html>
